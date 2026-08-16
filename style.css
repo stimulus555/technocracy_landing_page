@@ -18,10 +18,15 @@ a { color:inherit; text-decoration:none; }
 .enter-button:hover,.primary-link:hover { transform:translateY(-4px); background:#fff2a7; }
 .loader { position:absolute; inset:0; display:none; place-items:center; text-align:center; background:#091116; }
 .loader.active { display:grid; }
-.loader p { position:absolute; margin-top:205px; color:var(--yellow); font:500 11px "DM Mono",monospace; letter-spacing:.13em; }
-.loader-gear { position:absolute; border:21px dotted var(--steel); border-radius:50%; box-shadow:inset 0 0 0 20px #101d23,0 0 0 1px #485d60; animation:spin 1.9s linear infinite; }
-.gear-large { width:180px; height:180px; }
-.gear-small { width:104px; height:104px; margin-left:165px; margin-top:115px; border-width:14px; animation-direction:reverse; animation-duration:1.2s; }
+.loader p { position:absolute; margin-top:250px; color:var(--yellow); font:500 11px "DM Mono",monospace; letter-spacing:.13em; }
+.gear-system { position:relative;width:330px;height:235px; }
+/* Each gear has teeth, a machined steel rim, spokes, and a recessed central bore. */
+.loader-gear { position:absolute; display:grid; place-items:center; border-radius:50%; background:repeating-conic-gradient(from 0deg,#d4ddd5 0deg 7deg,#4e6565 8deg 12deg,#202f32 13deg 16deg); filter:drop-shadow(9px 13px 9px #0008); animation:spin 4s linear infinite; }
+.loader-gear::before { content:""; width:73%; height:73%; border-radius:50%; background:repeating-conic-gradient(#607a78 0deg 22deg,#25393c 23deg 45deg); box-shadow:inset 0 0 0 11px #aebfb8,inset 0 0 15px #0b1618; }
+.loader-gear i { position:absolute;width:29%;height:29%;border-radius:50%;background:radial-gradient(circle at 32% 28%,#d8e2d8,#536b6a 38%,#14272a 42%);box-shadow:inset 0 0 0 6px #1a3032,0 0 0 2px #9aaca6; }
+.gear-large { width:176px; height:176px; left:24px; top:20px; }
+.gear-small { width:116px; height:116px; left:176px; top:107px; animation-direction:reverse; animation-duration:2.65s; }
+.gear-mini { width:76px; height:76px; left:184px; top:27px; animation-duration:2s; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
 /* =============== NAVIGATION AND HERO =============== */
