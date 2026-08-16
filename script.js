@@ -61,52 +61,13 @@ function updateScrollMotion() {
   const heroProgress = Math.min(Math.max(window.scrollY / (hero.offsetHeight * .9), 0), 1);
   engineScene.style.setProperty("--hero-progress", heroProgress.toFixed(3));
   engineExplode = heroProgress;
-  if (Number.isFinite(engineVideo.duration)) {
-    const targetTime = heroProgress * (engineVideo.duration * (2 / 3));
-    if (Math.abs(engineVideo.currentTime - targetTime) > .025) engineVideo.currentTime = targetTime;
-  }
-
   const travel = bikeSection.offsetHeight - window.innerHeight;
   const bikeProgress = Math.min(Math.max((window.scrollY - bikeSection.offsetTop) / travel, 0), 1);
   carProgress = bikeProgress;
-  if (Number.isFinite(bikeVideo.duration)) {
-    // Use only the first half of the clip; the short 140vh section keeps this motion fast.
-    const targetTime = bikeProgress * (bikeVideo.duration * .5);
-    if (Math.abs(bikeVideo.currentTime - targetTime) > .025) bikeVideo.currentTime = targetTime;
-  }
-
-  if (Number.isFinite(systemsVideo.duration)) {
-    const systemsTravel = Math.max(systemsSection.offsetHeight, 1);
-    const systemsProgress = Math.min(Math.max((window.scrollY - systemsSection.offsetTop) / systemsTravel, 0), 1);
-    const targetTime = systemsProgress * Math.max(systemsVideo.duration - .04, 0);
-    if (Math.abs(systemsVideo.currentTime - targetTime) > .02) systemsVideo.currentTime = targetTime;
-  }
-
-  if (Number.isFinite(participateVideo.duration)) {
-    const travel = Math.max(participateSection.offsetHeight, 1);
-    const progress = Math.min(Math.max((window.scrollY - participateSection.offsetTop) / travel, 0), 1);
-    const targetTime = progress * Math.max(participateVideo.duration - .04, 0);
-    if (Math.abs(participateVideo.currentTime - targetTime) > .02) participateVideo.currentTime = targetTime;
-  }
 }
 
 window.addEventListener("scroll", updateScrollMotion, { passive:true });
 window.addEventListener("resize", updateScrollMotion);
-bikeVideo.addEventListener("loadedmetadata", () => { bikeVideo.pause(); bikeVideo.currentTime = .01; updateScrollMotion(); });
-engineVideo.addEventListener("loadedmetadata", () => { engineVideo.pause(); engineVideo.currentTime = .01; updateScrollMotion(); });
-missionVideo.addEventListener("loadedmetadata", () => { missionVideo.pause(); missionVideo.currentTime = .01; });
-systemsVideo.addEventListener("loadedmetadata", () => { systemsVideo.pause(); systemsVideo.currentTime = .01; });
-participateVideo.addEventListener("loadedmetadata", () => { participateVideo.pause(); participateVideo.currentTime = .01; updateScrollMotion(); });
-
-// The third-page gears animation follows the visitor's horizontal cursor movement.
-missionSection.addEventListener("mousemove", (event) => {
-  if (!Number.isFinite(missionVideo.duration)) return;
-  const rect = missionSection.getBoundingClientRect();
-  const progress = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
-  const targetTime = progress * Math.max(missionVideo.duration - .04, 0);
-  if (Math.abs(missionVideo.currentTime - targetTime) > .02) missionVideo.currentTime = targetTime;
-});
-
 
 // ---------- Real WebGL mechanical engine ----------
 // The model is assembled from actual 3D geometry and lit like a machined metal object.
