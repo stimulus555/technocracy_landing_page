@@ -3,6 +3,7 @@ const introScreen = document.querySelector("#introScreen");
 const loader = document.querySelector("#loader");
 const loaderText = document.querySelector("#loaderText");
 const loaderVideo = document.querySelector("#loaderVideo");
+const loaderProgress = document.querySelector("#loaderProgress");
 const mainSite = document.querySelector("#mainSite");
 const hero = document.querySelector(".hero");
 const engineScene = document.querySelector(".engine-scene");
@@ -38,13 +39,16 @@ enterButton.addEventListener("click", () => {
   loader.classList.add("active");
   enterButton.disabled = true;
   loadingComplete = false;
+  loaderProgress.style.width = "0%";
   loaderVideo.currentTime = 0;
   loaderVideo.play().catch(runLoadingFallback);
 });
 
 loaderVideo.addEventListener("timeupdate", () => {
   if (Number.isFinite(loaderVideo.duration) && loaderVideo.duration > 0) {
-    loaderText.textContent = `INITIALISING ${Math.round(loaderVideo.currentTime / loaderVideo.duration * 100)}%`;
+    const progress = Math.round(loaderVideo.currentTime / loaderVideo.duration * 100);
+    loaderText.textContent = `INITIALISING ${progress}%`;
+    loaderProgress.style.width = `${progress}%`;
   }
 });
 loaderVideo.addEventListener("ended", () => { loaderText.textContent = "INITIALISING 100%"; completeLoading(); });
@@ -54,6 +58,7 @@ function runLoadingFallback() {
   function tick(now) {
     const progress = Math.min((now - started) / 2500, 1);
     loaderText.textContent = `INITIALISING ${Math.round(progress * 100)}%`;
+    loaderProgress.style.width = `${progress * 100}%`;
     if (progress < 1) requestAnimationFrame(tick); else completeLoading();
   }
   requestAnimationFrame(tick);
@@ -236,3 +241,4 @@ function resizeCar(){
 }
 window.addEventListener("resize",resizeCar);
 buildCar();
+
