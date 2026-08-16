@@ -20,6 +20,19 @@ let engineExplode = 0;
 let carProgress = 0;
 let loadingComplete = false;
 
+// Mechanical HUD cursor for mouse-based devices.
+const customCursor = document.querySelector(".custom-cursor");
+if (customCursor && window.matchMedia("(pointer:fine)").matches) {
+  document.addEventListener("pointermove", (event) => {
+    customCursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+    customCursor.classList.add("visible");
+  });
+  document.querySelectorAll("a, button").forEach((element) => {
+    element.addEventListener("pointerenter", () => customCursor.classList.add("hover"));
+    element.addEventListener("pointerleave", () => customCursor.classList.remove("hover"));
+  });
+}
+
 // The loading animation plays to the end before the main experience appears.
 enterButton.addEventListener("click", () => {
   loader.classList.add("active");
