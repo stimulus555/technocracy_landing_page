@@ -64,10 +64,18 @@ function updateScrollMotion() {
   const travel = bikeSection.offsetHeight - window.innerHeight;
   const bikeProgress = Math.min(Math.max((window.scrollY - bikeSection.offsetTop) / travel, 0), 1);
   carProgress = bikeProgress;
+
+  if (Number.isFinite(missionVideo.duration)) {
+    const missionTravel = Math.max(missionSection.offsetHeight, 1);
+    const missionProgress = Math.min(Math.max((window.scrollY - missionSection.offsetTop) / missionTravel, 0), 1);
+    const targetTime = missionProgress * Math.max(missionVideo.duration - .04, 0);
+    if (Math.abs(missionVideo.currentTime - targetTime) > .02) missionVideo.currentTime = targetTime;
+  }
 }
 
 window.addEventListener("scroll", updateScrollMotion, { passive:true });
 window.addEventListener("resize", updateScrollMotion);
+missionVideo.addEventListener("loadedmetadata", () => { missionVideo.pause(); missionVideo.currentTime = .01; updateScrollMotion(); });
 
 // ---------- Real WebGL mechanical engine ----------
 // The model is assembled from actual 3D geometry and lit like a machined metal object.
