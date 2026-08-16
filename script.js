@@ -66,8 +66,9 @@ function updateScrollMotion() {
   carProgress = bikeProgress;
 
   if (Number.isFinite(missionVideo.duration)) {
-    const missionTravel = Math.max(missionSection.offsetHeight, 1);
-    const missionProgress = Math.min(Math.max((window.scrollY - missionSection.offsetTop) / missionTravel, 0), 1);
+    // Begin the video as soon as this section enters the viewport, not only once it reaches the top.
+    const missionTravel = Math.max(window.innerHeight + missionSection.offsetHeight, 1);
+    const missionProgress = Math.min(Math.max((window.scrollY + window.innerHeight - missionSection.offsetTop) / missionTravel, 0), 1);
     const targetTime = missionProgress * Math.max(missionVideo.duration - .04, 0);
     if (Math.abs(missionVideo.currentTime - targetTime) > .02) missionVideo.currentTime = targetTime;
   }
