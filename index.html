@@ -17,8 +17,11 @@
 
     <!-- This loader is revealed by JavaScript when the Enter button is clicked. -->
     <div class="loader" id="loader" aria-live="polite">
-      <div class="loader-gear gear-large"></div>
-      <div class="loader-gear gear-small"></div>
+      <div class="gear-system" aria-hidden="true">
+        <div class="loader-gear gear-large"><i></i></div>
+        <div class="loader-gear gear-small"><i></i></div>
+        <div class="loader-gear gear-mini"><i></i></div>
+      </div>
       <p id="loaderText">CALIBRATING 0%</p>
     </div>
   </section>
