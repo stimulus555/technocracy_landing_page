@@ -22,7 +22,7 @@ enterButton.addEventListener("click", () => {
 // ---------- A real WebGL V4 engine: meshes, materials, lights, and camera ----------
 const canvas = document.querySelector("#engineCanvas");
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100); camera.position.set(8, 6, 11);
+const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100); camera.position.set(8, 6, 11); camera.lookAt(0, 0, 0);
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 scene.add(new THREE.HemisphereLight(0xddefff, 0x11191c, 2.6));
@@ -77,4 +77,4 @@ function resize() { const r=canvas.getBoundingClientRect(); renderer.setSize(r.w
 addEventListener("resize",resize); resize();
 function updateExplosion() { const amount=Math.min(scrollY/(innerHeight*.78),1); explodedParts.forEach(p=>p.position.lerpVectors(p.userData.home,p.userData.home.clone().add(p.userData.target),amount)); return amount; }
 function render() { const explode=updateExplosion(); crank.rotation.x+=.016*(1-explode*.45); flywheel.rotation.x+=.011; engine.rotation.y=-.65+Math.sin(performance.now()*.00025)*.11; renderer.render(scene,camera); requestAnimationFrame(render); }
-re
+render();
