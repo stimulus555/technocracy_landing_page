@@ -4,6 +4,7 @@
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; color:#f4f4ec; background:var(--black); font-family:"Space Grotesk", Arial, sans-serif; overflow-x:hidden; }
+@media (pointer:fine) { body, a, button { cursor:none; } .custom-cursor { position:fixed; z-index:100; top:0; left:0; width:28px; height:28px; margin:-14px 0 0 -14px; border:1px solid var(--yellow); border-radius:50%; pointer-events:none; opacity:0; transform:translate(-100px,-100px); transition:width .18s ease,height .18s ease,margin .18s ease,opacity .2s ease,background .18s ease; box-shadow:0 0 16px rgba(245,213,71,.42); } .custom-cursor::before,.custom-cursor::after { content:""; position:absolute; top:50%; left:50%; background:var(--yellow); transform:translate(-50%,-50%); } .custom-cursor::before { width:38px; height:1px; } .custom-cursor::after { width:1px; height:38px; } .custom-cursor.visible { opacity:1; } .custom-cursor.hover { width:52px; height:52px; margin:-26px 0 0 -26px; background:rgba(245,213,71,.13); } }
 a { color:inherit; text-decoration:none; }
 .eyebrow { margin:0; color:var(--yellow); font:500 11px/1.25 "DM Mono", monospace; letter-spacing:.14em; }
 
